@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevTools Suite — Remike Dev</title>
+<meta name="description" content="Kumpulan tools kecil buat developer: JSON formatter, Base64 encode/decode, UUID generator, password generator, dan timestamp converter. Semua jalan lokal di browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#top">DevTools<span>Suite</span></a>
+  <p class="header-note">5 tools · 0 server · 100% lokal</p>
+</header>
+<div class="tape" aria-hidden="true"><span>JSON * Base64 * UUID * Password * Timestamp * Tanpa Server * Tanpa Tracking * JSON * Base64 * UUID * Password * Timestamp * Tanpa Server * Tanpa Tracking *</span></div>
+
+<main id="top">
+  <section class="hero">
+    <p class="hero-kicker">kotak perkakas developer</p>
+    <h1>Lima tools kecil yang <span class="hl">sering kepake,</span> dalam satu halaman.</h1>
+    <p class="hero-sub">Format JSON berantakan, encode Base64, bikin UUID, generate password, sampai konversi timestamp — semuanya diproses <strong>langsung di browser kamu</strong>. Tidak ada data yang dikirim ke server mana pun.</p>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="Pilih tool">
+    <button class="tab tab-json is-active" id="tabbtn-json" role="tab" aria-selected="true" aria-controls="panel-json" data-tab="json">{ } JSON</button>
+    <button class="tab tab-b64" id="tabbtn-b64" role="tab" aria-selected="false" aria-controls="panel-b64" data-tab="b64">B64 Base64</button>
+    <button class="tab tab-uuid" id="tabbtn-uuid" role="tab" aria-selected="false" aria-controls="panel-uuid" data-tab="uuid"># UUID</button>
+    <button class="tab tab-pass" id="tabbtn-pass" role="tab" aria-selected="false" aria-controls="panel-pass" data-tab="pass">✱ Password</button>
+    <button class="tab tab-ts" id="tabbtn-ts" role="tab" aria-selected="false" aria-controls="panel-ts" data-tab="ts">◷ Timestamp</button>
+  </div>
+
+  <!-- JSON FORMATTER -->
+  <section class="panel tool-panel" id="panel-json" role="tabpanel" aria-labelledby="tabbtn-json">
+    <h2>JSON Formatter</h2>
+    <span class="panel-sub">json nempel sebaris? rapikan di sini ↓</span>
+    <label class="field-label" for="json-input">JSON kamu</label>
+    <textarea id="json-input" class="code-area" rows="9" spellcheck="false" placeholder='{"nama":"remike","tools":["json","base64","uuid"]}'></textarea>
+    <div class="row row-between">
+      <p class="meta" id="json-count">0 karakter</p>
+      <p class="msg" id="json-msg" role="status"></p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-green" id="json-format" type="button">Format →</button>
+      <button class="btn btn-white" id="json-minify" type="button">Minify</button>
+      <button class="btn btn-white" id="json-copy" type="button">Salin hasil</button>
+      <button class="btn btn-white" id="json-clear" type="button">Bersihkan</button>
+    </div>
+  </section>
+
+  <!-- BASE64 -->
+  <section class="panel tool-panel" id="panel-b64" role="tabpanel" aria-labelledby="tabbtn-b64" hidden>
+    <h2>Base64 Encode / Decode</h2>
+    <span class="panel-sub">aman buat emoji & huruf non-latin ✓</span>
+    <label class="field-label" for="b64-input">Teks atau Base64</label>
+    <textarea id="b64-input" class="code-area" rows="7" spellcheck="false" placeholder="Ketik teks biasa di sini, atau tempel Base64 buat di-decode…"></textarea>
+    <p class="msg" id="b64-msg" role="status"></p>
+    <div class="btn-row">
+      <button class="btn btn-green" id="b64-encode" type="button">Encode →</button>
+      <button class="btn btn-white" id="b64-decode" type="button">Decode</button>
+      <button class="btn btn-white" id="b64-copy" type="button">Salin hasil</button>
+      <button class="btn btn-white" id="b64-clear" type="button">Bersihkan</button>
+    </div>
+    <label class="field-label" for="b64-output">Hasil</label>
+    <textarea id="b64-output" class="code-area" rows="5" spellcheck="false" readonly placeholder="Hasilnya muncul di sini."></textarea>
+  </section>
+
+  <!-- UUID -->
+  <section class="panel tool-panel" id="panel-uuid" role="tabpanel" aria-labelledby="tabbtn-uuid" hidden>
+    <h2>UUID Generator</h2>
+    <span class="panel-sub">uuid v4 acak, dibikin pakai crypto browser ↓</span>
+    <div class="row">
+      <div class="field-inline">
+        <label class="field-label" for="uuid-count">Jumlah (1–100)</label>
+        <input id="uuid-count" type="number" min="1" max="100" value="5" inputmode="numeric">
+      </div>
+      <div class="btn-row btn-row-end">
+        <button class="btn btn-green" id="uuid-generate" type="button">Generate →</button>
+        <button class="btn btn-white" id="uuid-copy" type="button">Salin semua</button>
+      </div>
+    </div>
+    <p class="msg" id="uuid-msg" role="status"></p>
+    <label class="field-label" for="uuid-output">Hasil UUID</label>
+    <textarea id="uuid-output" class="code-area" rows="8" spellcheck="false" readonly placeholder="UUID-nya muncul di sini, satu per baris."></textarea>
+  </section>
+
+  <!-- PASSWORD -->
+  <section class="panel tool-panel" id="panel-pass" role="tabpanel" aria-labelledby="tabbtn-pass" hidden>
+    <h2>Password Generator</h2>
+    <span class="panel-sub">acak beneran, bukan asal pencet keyboard ↓</span>
+    <label class="field-label" for="pass-output">Password kamu</label>
+    <div class="pass-out-row">
+      <input id="pass-output" class="code-input" type="text" readonly spellcheck="false" placeholder="Klik Generate dulu ya">
+      <span class="strength" id="pass-strength">—</span>
+    </div>
+    <div class="field-inline field-slider">
+      <label class="field-label" for="pass-length">Panjang: <span id="pass-length-val">16</span> karakter</label>
+      <input id="pass-length" type="range" min="8" max="64" value="16">
+    </div>
+    <fieldset class="toggles">
+      <legend class="field-label">Isi password</legend>
+      <label class="check"><input type="checkbox" id="pass-upper" checked> Huruf besar (A–Z)</label>
+      <label class="check"><input type="checkbox" id="pass-numbers" checked> Angka (0–9)</label>
+      <label class="check"><input type="checkbox" id="pass-symbols" checked> Simbol (!@#$…)</label>
+    </fieldset>
+    <p class="msg" id="pass-msg" role="status"></p>
+    <div class="btn-row">
+      <button class="btn btn-green" id="pass-generate" type="button">Generate →</button>
+      <button class="btn btn-white" id="pass-copy" type="button">Salin password</button>
+    </div>
+    <p class="meta">Huruf kecil selalu ikut. Password dibuat pakai <code>crypto.getRandomValues</code> dan tidak pernah meninggalkan browser.</p>
+  </section>
+
+  <!-- TIMESTAMP -->
+  <section class="panel tool-panel" id="panel-ts" role="tabpanel" aria-labelledby="tabbtn-ts" hidden>
+    <h2>Timestamp Converter</h2>
+    <span class="panel-sub">detik unix ↔ tanggal manusia, bolak-balik ↓</span>
+
+    <div class="now-box">
+      <p class="meta">Timestamp sekarang (detik)</p>
+      <p class="now-value" id="ts-now">—</p>
+      <button class="btn btn-white btn-sm" id="ts-now-copy" type="button">Salin</button>
+    </div>
+
+    <div class="ts-grid">
+      <div class="ts-block">
+        <h3>Unix → Tanggal</h3>
+        <label class="field-label" for="ts-unix-input">Detik unix</label>
+        <input id="ts-unix-input" class="code-input" type="text" inputmode="numeric" placeholder="cth. 1763800000" spellcheck="false">
+        <button class="btn btn-green" id="ts-to-date" type="button">Ubah ke tanggal →</button>
+        <div class="result-box" id="ts-date-result" aria-live="polite">
+          <p><span class="result-label">Lokal</span><span id="ts-date-local">—</span></p>
+          <p><span class="result-label">ISO</span><span id="ts-date-iso">—</span></p>
+        </div>
+      </div>
+      <div class="ts-block">
+        <h3>Tanggal → Unix</h3>
+        <label class="field-label" for="ts-date-input">Pilih tanggal & jam</label>
+        <input id="ts-date-input" class="code-input" type="datetime-local" step="1">
+        <button class="btn btn-green" id="ts-to-unix" type="button">Ubah ke unix →</button>
+        <div class="result-box" aria-live="polite">
+          <p><span class="result-label">Detik</span><span id="ts-unix-result">—</span></p>
+          <p><span class="result-label">Milidetik</span><span id="ts-ms-result">—</span></p>
+        </div>
+        <button class="btn btn-white btn-sm" id="ts-unix-copy" type="button">Salin detik</button>
+      </div>
+    </div>
+    <p class="msg" id="ts-msg" role="status"></p>
+  </section>
+
+  <p class="closing-note">Semua tool di atas jalan 100% di browser. Buka DevTools, cek tab Network — tidak ada satu pun request keluar. <strong>Data kamu tetap di sini.</strong></p>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <p>Dibuat oleh Remike Dev</p>
+    <p><a href="https://github.com/kirax-12" target="_blank" rel="noopener">github.com/kirax-12</a> · <a href="#top">Kembali ke atas ↑</a></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
