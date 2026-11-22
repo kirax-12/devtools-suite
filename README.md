@@ -1,5 +1,7 @@
 # DevTools Suite
 
+**Demo live:** [devtools-suite di GitHub Pages](https://kirax-12.github.io/devtools-suite/)
+
 Kumpulan 5 tools kecil buat developer dalam satu halaman web. Semua proses jalan **100% lokal di browser** — tidak ada server, tidak ada data yang dikirim ke mana-mana.
 
 ## Fitur
